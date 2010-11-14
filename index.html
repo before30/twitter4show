@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>Twitter for Show by using NodeJS</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+		<script type='text/javascript'>
+			$(function(){
+				var webSocket = new WebSocket('ws://localhost:8002');
+				webSocket.onopen = function(event){
+					$('#status').html('connected');
+				};
+				webSocket.onmessage = function(event){
+					var eventdata = JSON.parse(event.data);
+					var tweets = eventdata.results;
+					for (var i=0; i<tweets.length; i++){
+						$('#transcript').prepend("@" + tweets[i].from_user + " "  + tweets[i].text + "<br/>");
+					}
+				};
+				webSocket.onclose = function(event){
+					$('#status').html('socket closed');
+				};
+			})
+		</script>
+		<body>
+			<h2><span id="status">opening socket</span></h2>
+			<div id = "transcript"></div>
+		</body>
+				
+</html>
+
