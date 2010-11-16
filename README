@@ -1,0 +1,7 @@
+usage :
+node server.js
+
+node version is over 0.3.x
+
+connect to http://servierip:8888/index.html
+
